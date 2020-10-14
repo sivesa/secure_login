@@ -1,7 +1,39 @@
-<?
-	session_start()
-?>
+<?php
 
+include 'config/database.php';
+
+$email = $_POST['email'];
+$password = $_POST['password'];
+
+if (!empty($_POST["submitty"])) {
+    try {
+        $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$get_hash = $conn->prepare("SELECT password FROM abantu WHERE email= :email");
+        $get_hash->bindParam(':email', $email);
+        $get_hash->execute();
+        $hash = $get_hash->fetchColumn();
+
+        if (password_verify($password, $hash)) {
+            $val = $conn->prepare("SELECT Email, Verify FROM users WHERE Email= :Email AND Verify= :Verify");
+            $val->bindParam(':Email', $email);
+            $val->bindParam(':Verify', $Verify);
+            $val->execute();
+            if ($val->rowCount() > 0) {
+                $_SESSION['loggued_on_user'] = $email;
+                header("Location: home.php");
+            }
+        } else {
+            $err_str = "bad email, password combination or email not verified";
+        }
+    } catch
+    (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +80,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -61,17 +93,17 @@
 						</button>
 					</div>
 
-					<div class="text-center p-t-12">
+					<!-- <div class="text-center p-t-12">
 						<span class="txt1">
 							Forgot
 						</span>
 						<a class="txt2" href="#">
 							Username / Password?
 						</a>
-					</div>
+					</div> -->
 
 					<div class="text-center p-t-136">
-						<a class="txt2" href="#">
+						<a class="txt2" href="register.php">
 							Create your Account
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
