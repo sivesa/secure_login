@@ -2,7 +2,7 @@
 
 $DB_DSN = 'localhost';
 $DB_USER = 'root';
-$DB_PASSWORD = 'Tj95epKr';
+$DB_PASSWORD = 'db-password';
 $DB_NAME = 'abantu';
 
 ?>
