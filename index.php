@@ -16,13 +16,12 @@ if (!empty($_POST["submitty"])) {
         $hash = $get_hash->fetchColumn();
 
         if (password_verify($password, $hash)) {
-            $val = $conn->prepare("SELECT Email, Verify FROM users WHERE Email= :Email AND Verify= :Verify");
-            $val->bindParam(':Email', $email);
-            $val->bindParam(':Verify', $Verify);
+            $val = $conn->prepare("SELECT email FROM abantu WHERE email=:email");
+            $val->bindParam(':email', $email);
             $val->execute();
             if ($val->rowCount() > 0) {
-                $_SESSION['loggued_on_user'] = $email;
-                header("Location: home.php");
+                $_SESSION['logged_on_user'] = $email;
+                header("Location: dashboard/dashboard.php");
             }
         } else {
             $err_str = "bad email, password combination or email not verified";
@@ -66,7 +65,7 @@ if (!empty($_POST["submitty"])) {
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form">
+				<form method="POST" class="login100-form validate-form">
 					<span class="login100-form-title">
 						Member Login
 					</span>
@@ -88,9 +87,7 @@ if (!empty($_POST["submitty"])) {
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Login
-						</button>
+						<input type="submit" name="submitty" value="Login" class="login100-form-btn">
 					</div>
 
 					<!-- <div class="text-center p-t-12">

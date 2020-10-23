@@ -12,6 +12,7 @@ bash install.sh
 
 We need to setup database server connection between PHP and a database server, with the use of PHP Data Object (PDO). PDO is a Database Access Abstraction Layer that offers unified interface to access different types of databases. 
 ...
+Code little buggy and messy
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -3,6 +3,6 @@
 $DB_DSN = 'localhost';
 $DB_USER = 'root';
 $DB_PASSWORD = '';
-$DB_NAME = 'abantu_db';
+$DB_NAME = 'abantu';
 
 ?>
