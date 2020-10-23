@@ -3,7 +3,7 @@
 secure login system with Linux, Apache2, PHP and MySQL (LAMP Stack).
 
 ## installation
-Manually installing lamp stack using bash script and phpmyadmin.
+Manually installing lamp stack and phpmyadmin using bash script.
 ```bash
 bash install.sh
 ```
